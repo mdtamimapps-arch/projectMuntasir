@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আরবি বর্ণমালা শিখি 🌙✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap');
+
+        :root {
+            --primary-bg: #e0f7fa;
+            --card-shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle, #ffffff, #81d4fa);
+            font-family: 'Hind Siliguri', sans-serif;
+            overflow: hidden;
+        }
+
+        .main-card {
+            width: 85vw;
+            max-width: 500px;
+            height: 75vh;
+            background: white;
+            border-radius: 40px;
+            box-shadow: 0 25px 50px var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 10px solid #fff;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #content-box {
+            text-align: center;
+            animation: popIn 0.6s ease;
+        }
+
+        /* আরবি বড় অক্ষর */
+        .arabic-letter {
+            font-size: clamp(100px, 30vw, 180px);
+            font-weight: bold;
+            margin: 0;
+            line-height: 1.2;
+            text-shadow: 4px 4px 0px rgba(0,0,0,0.05);
+        }
+
+        /* বাংলা উচ্চারণ */
+        .pronunciation {
+            font-size: clamp(30px, 8vw, 55px);
+            font-weight: bold;
+            margin: 10px 0;
+            background: #f8f9fa;
+            padding: 5px 25px;
+            border-radius: 20px;
+            color: #333;
+        }
+
+        /* স্টিকার ইমোজি */
+        .sticker {
+            font-size: clamp(60px, 15vw, 110px);
+            margin-top: 10px;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1));
+        }
+
+        /* বাটন স্টাইল */
+        .nav-buttons {
+            position: absolute;
+            bottom: -90px;
+            display: flex;
+            gap: 25px;
+        }
+
+        .btn {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-prev { background: #FF7043; color: white; }
+        .btn-next { background: #26A69A; color: white; }
+        .btn:active { transform: scale(0.9); }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* ব্যাকগ্রাউন্ড তারা */
+        .star { position: absolute; color: gold; opacity: 0.6; }
+    </style>
+</head>
+<body>
+
+<div class="main-card" id="card">
+    <div id="content-box">
+        <div class="arabic-letter" id="arabic">ا</div>
+        <div class="pronunciation" id="bangla">আলিফ</div>
+        <div class="sticker" id="sticker">🍎</div>
+    </div>
+
+    <div class="nav-buttons">
+        <button class="btn btn-prev" onclick="changeLetter(-1)">⬅️</button>
+        <button class="btn btn-next" onclick="changeLetter(1)">➡️</button>
+    </div>
+</div>
+
+<script>
+    const data = [
+        {a: "ا", b: "আলিফ", s: "🍎", c: "#FF5252"},
+        {a: "ب", b: "বা", s: "🦆", c: "#448AFF"},
+        {a: "ت", b: "তা", s: "🍎", c: "#4CAF50"},
+        {a: "ث", b: "সা", s: "🍇", c: "#9C27B0"},
+        {a: "ج", b: "জীম", s: "🐪", c: "#FF9800"},
+        {a: "ح", b: "হা", s: "🕋", c: "#00BCD4"},
+        {a: "خ", b: "খা", s: "🍞", c: "#795548"},
+        {a: "د", b: "দাল", s: "🐓", c: "#E91E63"},
+        {a: "ذ", b: "যাল", s: "🐺", c: "#607D8B"},
+        {a: "ر", b: "রা", s: "🏠", c: "#FFC107"},
+        {a: "ز", b: "যা", s: "🌸", c: "#8BC34A"},
+        {a: "س", b: "সীন", s: "🐟", c: "#03A9F4"},
+        {a: "ش", b: "শীন", s: "☀️", c: "#F44336"},
+        {a: "ص", b: "সোয়াদ", s: "🏹", c: "#673AB7"},
+        {a: "ض", b: "দোয়াদ", s: "🐸", c: "#388E3C"},
+        {a: "ط", b: "তোয়া", s: "✈️", c: "#2196F3"},
+        {a: "ظ", b: "জোয়া", s: "✉️", c: "#FF5722"},
+        {a: "ع", b: "আইন", s: "🍇", c: "#009688"},
+        {a: "غ", b: "গাইন", s: "☁️", c: "#607D8B"},
+        {a: "ف", b: "ফা", s: "🐘", c: "#E91E63"},
+        {a: "ق", b: "ক্বফ", s: "🖊️", c: "#3F51B5"},
+        {a: "ك", b: "কাফ", s: "📖", c: "#8BC34A"},
+        {a: "ل", b: "লাম", s: "🍋", c: "#FFEB3B"},
+        {a: "م", b: "মীম", s: "🍌", c: "#FF9800"},
+        {a: "ن", b: "নূন", s: "⭐", c: "#4CAF50"},
+        {a: "و", b: "ওয়াও", s: "🌹", c: "#F44336"},
+        {a: "هـ", b: "হা", s: "🐈", c: "#00BCD4"},
+        {a: "لا", b: "লাম-আলিফ", s: "🪁", c: "#9C27B0"},
+        {a: "ي", b: "ইয়া", s: "🤚", c: "#FFC107"}
+    ];
+
+    let index = 0;
+
+    function changeLetter(step) {
+        index += step;
+        if (index >= data.length) index = 0;
+        if (index < 0) index = data.length - 1;
+
+        const card = document.getElementById('card');
+        const content = document.getElementById('content-box');
+        
+        // এনিমেশন রিসেট
+        content.style.animation = 'none';
+        content.offsetHeight; 
+        content.style.animation = 'popIn 0.5s ease';
+
+        // ডাটা আপডেট
+        document.getElementById('arabic').innerText = data[index].a;
+        document.getElementById('bangla').innerText = data[index].b;
+        document.getElementById('sticker').innerText = data[index].s;
+        
+        // কালার চেঞ্জ
+        document.getElementById('arabic').style.color = data[index].c;
+        card.style.borderColor = data[index].c;
+    }
+
+    // কীবোর্ড সাপোর্ট
+    document.addEventListener('keydown', (e) => {
+        if(e.key === "ArrowRight") changeLetter(1);
+        if(e.key === "ArrowLeft") changeLetter(-1);
+    });
+</script>
+
+</body>
+</html>
