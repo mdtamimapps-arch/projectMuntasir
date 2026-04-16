@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আরবি বর্ণমালা শিক্ষা 🌙</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+            font-family: 'Hind Siliguri', sans-serif;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        /* মেইন ডিসপ্লে কার্ড */
+        .display-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: #ffffff;
+        }
+
+        .content {
+            text-align: center;
+            animation: zoomIn 0.4s ease-out;
+        }
+
+        /* বড় আরবি অক্ষর */
+        .arabic-text {
+            font-size: clamp(150px, 45vw, 350px);
+            font-weight: bold;
+            line-height: 1.1;
+            margin: 0;
+            display: block;
+        }
+
+        /* বাংলা উচ্চারণ */
+        .bangla-text {
+            font-size: clamp(40px, 10vw, 80px);
+            color: #333;
+            margin-top: 20px;
+            font-weight: 700;
+            background: #f0f0f0;
+            padding: 10px 40px;
+            border-radius: 50px;
+            display: inline-block;
+        }
+
+        /* বাম ও ডান পাশের বাটন */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(0, 0, 0, 0.05);
+            border: none;
+            border-radius: 50%;
+            font-size: 40px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+            color: #555;
+            z-index: 10;
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev-btn { left: 20px; }
+        .next-btn { right: 20px; }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* মোবাইল স্ক্রিনের জন্য ছোট এডজাস্টমেন্ট */
+        @media (max-width: 600px) {
+            .nav-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 30px;
+            }
+            .prev-btn { left: 10px; }
+            .next-btn { right: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="display-container" id="bg-screen">
+    <button class="nav-btn prev-btn" onclick="changeLetter(-1)">❮</button>
+
+    <div class="content" id="main-content">
+        <div class="arabic-text" id="arabic-char">ا</div>
+        <div class="bangla-text" id="bangla-pronun">আলিফ</div>
+    </div>
+
+    <button class="nav-btn next-btn" onclick="changeLetter(1)">❯</button>
+</div>
+
+<script>
+    const alphabet = [
+        {a: "ا", b: "আলিফ", c: "#FF5252"},
+        {a: "ب", b: "বা", c: "#2196F3"},
+        {a: "ت", b: "তা", c: "#4CAF50"},
+        {a: "ث", b: "সা", c: "#9C27B0"},
+        {a: "ج", b: "জীম", c: "#FF9800"},
+        {a: "ح", b: "হা", c: "#00BCD4"},
+        {a: "خ", b: "খা", c: "#795548"},
+        {a: "د", b: "দাল", c: "#E91E63"},
+        {a: "ذ", b: "যাল", c: "#607D8B"},
+        {a: "ر", b: "রা", c: "#FFC107"},
+        {a: "ز", b: "যা", c: "#8BC34A"},
+        {a: "س", b: "সীন", c: "#03A9F4"},
+        {a: "ش", b: "শীন", c: "#F44336"},
+        {a: "ص", b: "সোয়াদ", c: "#673AB7"},
+        {a: "ض", b: "দোয়াদ", c: "#388E3C"},
+        {a: "ط", b: "তোয়া", c: "#2196F3"},
+        {a: "ظ", b: "জোয়া", c: "#FF5722"},
+        {a: "ع", b: "আইন", c: "#009688"},
+        {a: "غ", b: "গাইন", c: "#607D8B"},
+        {a: "ف", b: "ফা", c: "#E91E63"},
+        {a: "ق", b: "ক্বফ", c: "#3F51B5"},
+        {a: "ك", b: "কাফ", c: "#8BC34A"},
+        {a: "ل", b: "লাম", c: "#FFEB3B"},
+        {a: "م", b: "মীম", c: "#FF9800"},
+        {a: "ن", b: "নূন", c: "#4CAF50"},
+        {a: "و", b: "ওয়াও", c: "#F44336"},
+        {a: "هـ", b: "হা", c: "#00BCD4"},
+        {a: "لا", b: "লাম-আলিফ", c: "#9C27B0"},
+        {a: "ي", b: "ইয়া", c: "#FFC107"}
+    ];
+
+    let currentIndex = 0;
+
+    function changeLetter(dir) {
+        currentIndex += dir;
+        
+        if (currentIndex >= alphabet.length) currentIndex = 0;
+        if (currentIndex < 0) currentIndex = alphabet.length - 1;
+
+        const charEl = document.getElementById('arabic-char');
+        const pronunEl = document.getElementById('bangla-pronun');
+        const content = document.getElementById('main-content');
+        
+        // এনিমেশন রিসেট
+        content.style.animation = 'none';
+        content.offsetHeight; 
+        content.style.animation = 'zoomIn 0.4s ease-out';
+
+        // ডাটা আপডেট
+        charEl.innerText = alphabet[currentIndex].a;
+        charEl.style.color = alphabet[currentIndex].c;
+        pronunEl.innerText = alphabet[currentIndex].b;
+    }
+
+    // কীবোর্ড সাপোর্ট
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "ArrowRight") changeLetter(1);
+        if (e.key === "ArrowLeft") changeLetter(-1);
+    });
+</script>
+
+</body>
+</html>
