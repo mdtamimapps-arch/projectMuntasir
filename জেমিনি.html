@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বাচ্চাদের বর্ণমালা শেখা 🎨</title>
+    <style>
+        :root {
+            --bg-color: #f0f9ff;
+            --card-bg: #ffffff;
+            --text-color: #2d3436;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--bg-color);
+            font-family: 'Hind Siliguri', sans-serif;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        /* মেইন কার্ড কন্টেইনার */
+        .container {
+            width: 90vw;
+            height: 80vh;
+            max-width: 600px;
+            background: var(--card-bg);
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transition: all 0.5s ease;
+            border: 8px solid #FFD93D;
+        }
+
+        /* অক্ষর ও স্টিকার এনিমেশন */
+        #display-area {
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .letter {
+            font-size: clamp(80px, 25vw, 150px);
+            font-weight: bold;
+            margin: 0;
+            display: block;
+            line-height: 1;
+        }
+
+        .word-info {
+            font-size: clamp(24px, 8vw, 45px);
+            color: #444;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+
+        .emoji {
+            font-size: clamp(60px, 15vw, 100px);
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* নেভিগেশন বাটন */
+        .controls {
+            position: absolute;
+            bottom: -80px;
+            display: flex;
+            gap: 30px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 24px;
+            cursor: pointer;
+            border: none;
+            border-radius: 50px;
+            background: #FF6B6B;
+            color: white;
+            box-shadow: 0 5px 0 #cc5252;
+            transition: all 0.2s;
+        }
+
+        button:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #cc5252;
+        }
+
+        button.next { background: #4CAF50; box-shadow: 0 5px 0 #388E3C; }
+        button.next:active { box-shadow: 0 1px 0 #388E3C; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* ব্যাকগ্রাউন্ড ডেকোরেশন */
+        .bg-dots {
+            position: fixed;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(#FFD93D 2px, transparent 2px);
+            background-size: 30px 30px;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-dots"></div>
+
+<div class="container" id="card">
+    <div id="display-area">
+        <span class="letter" id="letter" style="color: #FF6B6B;">ক</span>
+        <span class="emoji" id="emoji">🍌</span>
+        <div class="word-info" id="word">ক-তে কলা</div>
+    </div>
+
+    <div class="controls">
+        <button onclick="prev()">⬅️ আগে</button>
+        <button class="next" onclick="next()">পরে ➡️</button>
+    </div>
+</div>
+
+<script>
+    const alphabetData = [
+        { l: "ক", w: "কলা", e: "🍌", c: "#FF6B6B" },
+        { l: "খ", w: "খেজুর", e: "🌴", c: "#4ECDC4" },
+        { l: "গ", w: "গরু", e: "🐄", c: "#FF9F43" },
+        { l: "ঘ", w: "ঘর", e: "🏠", c: "#6C5CE7" },
+        { l: "ঙ", w: "ব্যাঙ", e: "🐸", c: "#2ECC71" },
+        { l: "চ", w: "চশমা", e: "👓", c: "#E84393" },
+        { l: "ছ", w: "ছাতা", e: "☂️", c: "#0984E3" },
+        { l: "জ", w: "জাহাজ", e: "🚢", c: "#F1C40F" },
+        { l: "ঝ", w: "ঝড়", e: "⛈️", c: "#74b9ff" },
+        { l: "ঞ", w: "মিঞ", e: "👳", c: "#a29bfe" },
+        { l: "ট", w: "টিয়া", e: "🦜", c: "#26de81" },
+        { l: "ঠ", w: "ঠোঁট", e: "👄", c: "#fc5c65" },
+        { l: "ড", w: "ডিম", e: "🥚", c: "#fed330" },
+        { l: "ঢ", w: "ঢোল", e: "🥁", c: "#eb3b5a" },
+        { l: "ণ", w: "হরিণ", e: "🦌", c: "#45aaf2" },
+        { l: "ত", w: "তিমি", e: "🐋", c: "#2d98da" },
+        { l: "থ", w: "থলে", e: "🛍️", c: "#8854d0" },
+        { l: "দ", w: "দোয়েল", e: "🐦", c: "#20bf6b" },
+        { l: "ধ", w: "ধনুক", e: "🏹", c: "#fa8231" },
+        { l: "ন", w: "নৌকা", e: "⛵", c: "#4b7bec" },
+        { l: "প", w: "পাখি", e: "🕊️", c: "#FF6B6B" },
+        { l: "ফ", w: "ফুল", e: "🌸", c: "#eb3b5a" },
+        { l: "ব", w: "বক", e: "🦢", c: "#a55eea" },
+        { l: "ভ", w: "ভাল্লুক", e: "🐻", c: "#4b6584" },
+        { l: "ম", w: "ময়ূর", e: "🦚", c: "#26de81" },
+        { l: "য", w: "যাঁতা", e: "⚙️", c: "#778ca3" },
+        { l: "র", w: "রংধনু", e: "🌈", c: "#f7b731" },
+        { l: "ল", w: "লাটিম", e: "🪁", c: "#eb3b5a" },
+        { l: "শ", w: "শাপলা", e: "🪷", c: "#45aaf2" },
+        { l: "ষ", w: "ষাঁড়", e: "🐂", c: "#fa8231" },
+        { l: "স", w: "সিংহ", e: "🦁", c: "#FFD93D" },
+        { l: "হ", w: "হাতী", e: "🐘", c: "#4b7bec" },
+        { l: "ড়", w: "বিড়াল", e: "🐈", c: "#a55eea" },
+        { l: "ঢ়", w: "আষাঢ়", e: "🌧️", c: "#778ca3" },
+        { l: "য়", w: "আয়না", e: "🪞", c: "#45aaf2" },
+        { l: "ৎ", w: "মৎস্য", e: "🐟", c: "#26de81" },
+        { l: "ং", w: "শিং", e: "🎺", c: "#fa8231" },
+        { l: "ঃ", w: "দুঃখী", e: "😢", c: "#a29bfe" },
+        { l: "ঁ", w: "চাঁদ", e: "🌙", c: "#f7b731" }
+    ];
+
+    let currentIndex = 0;
+
+    function updateDisplay() {
+        const item = alphabetData[currentIndex];
+        const displayArea = document.getElementById('display-area');
+        const letterEl = document.getElementById('letter');
+        const emojiEl = document.getElementById('emoji');
+        const wordEl = document.getElementById('word');
+        const card = document.getElementById('card');
+
+        // এনিমেশন রিলোড
+        displayArea.style.animation = 'none';
+        displayArea.offsetHeight; /* ট্রিক: এনিমেশন রিসেট */
+        displayArea.style.animation = 'fadeIn 0.5s ease-out';
+
+        // ডাটা সেট
+        letterEl.innerText = item.l;
+        letterEl.style.color = item.c;
+        emojiEl.innerText = item.e;
+        wordEl.innerText = `${item.l}-তে ${item.w}`;
+        card.style.borderColor = item.c;
+    }
+
+    function next() {
+        currentIndex = (currentIndex + 1) % alphabetData.length;
+        updateDisplay();
+    }
+
+    function prev() {
+        currentIndex = (currentIndex - 1 + alphabetData.length) % alphabetData.length;
+        updateDisplay();
+    }
+
+    // কীবোর্ড সাপোর্ট
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "ArrowRight") next();
+        if (e.key === "ArrowLeft") prev();
+    });
+</script>
+
+</body>
+</html>
