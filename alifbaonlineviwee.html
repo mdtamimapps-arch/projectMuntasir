@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="theme-color" content="#85d7ff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>আরবি বর্ণমালা শিক্ষা 🌙</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap');
+
+        :root {
+            color-scheme: light;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button,
+        input {
+            touch-action: manipulation;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Hind Siliguri', sans-serif;
+            background: radial-gradient(circle at top left, #ffd6f7 0%, transparent 28%),
+                        radial-gradient(circle at top right, #85d7ff 0%, transparent 24%),
+                        linear-gradient(180deg, #f7f8ff 0%, #eef3ff 100%);
+            color: #1f2d47;
+            display: flex;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .page-card {
+            width: min(1180px, 100%);
+            background: rgba(255,255,255,0.9);
+            border-radius: 40px;
+            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: 0 28px 90px rgba(21, 48, 110, 0.12);
+            padding: 28px 28px 36px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+        }
+
+        .page-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle at 22% 12%, rgba(255, 255, 255, 0.8) 0%, transparent 18%),
+                              radial-gradient(circle at 78% 18%, rgba(23, 156, 255, 0.12) 0%, transparent 16%),
+                              radial-gradient(circle at 30% 80%, rgba(255, 160, 100, 0.14) 0%, transparent 16%);
+        }
+
+        .section-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+            flex-wrap: wrap;
+        }
+
+        .title-block {
+            max-width: 680px;
+        }
+
+        .brand-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.96rem;
+            background: rgba(5, 80, 205, 0.1);
+            color: #053c8b;
+            border: 1px solid rgba(5, 80, 205, 0.16);
+        }
+
+        .hero-title {
+            margin: 18px 0 0;
+            font-size: clamp(3rem, 5vw, 5.6rem);
+            line-height: 0.96;
+            letter-spacing: -0.04em;
+            font-weight: 800;
+            color: #122048;
+            text-shadow: 0 20px 40px rgba(16, 41, 92, 0.08);
+        }
+
+        .hero-subtitle {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 16px;
+            font-size: clamp(1.1rem, 1.7vw, 1.5rem);
+            background: #ffffff;
+            color: #24315b;
+            padding: 14px 24px;
+            border-radius: 999px;
+            border: 1px dashed rgba(34, 56, 112, 0.12);
+            box-shadow: 0 18px 30px rgba(25, 73, 150, 0.08);
+        }
+
+        .letter-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 22px;
+            z-index: 1;
+        }
+
+        .meta-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: 999px;
+            background: rgba(12, 51, 125, 0.06);
+            color: #1b2b4f;
+            font-weight: 600;
+            border: 1px solid rgba(11, 38, 108, 0.1);
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 28px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .control-card {
+            background: rgba(248, 251, 255, 0.96);
+            border-radius: 28px;
+            border: 1px solid rgba(63, 111, 255, 0.12);
+            padding: 18px 20px;
+            box-shadow: 0 20px 40px rgba(17, 59, 146, 0.08);
+        }
+
+        .control-card h3 {
+            margin: 0 0 14px;
+            font-size: 1rem;
+            letter-spacing: 0.01em;
+            color: #1b2850;
+        }
+
+        .color-palette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .swatch {
+            width: 46px;
+            height: 46px;
+            border-radius: 18px;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            box-shadow: 0 16px 24px rgba(33, 80, 150, 0.12);
+        }
+
+        .swatch:hover {
+            transform: translateY(-2px);
+        }
+
+        .swatch.active {
+            border-color: #ffffff;
+            box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.7), 0 18px 26px rgba(33, 80, 150, 0.18);
+        }
+
+        .tool-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tool-button {
+            flex: 1 1 140px;
+            min-width: 120px;
+            min-height: 54px;
+            border: none;
+            border-radius: 18px;
+            padding: 16px 18px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: #ffffff;
+            background: linear-gradient(135deg, #556bff, #818dff);
+            transition: transform 0.18s ease, filter 0.18s ease;
+            box-shadow: 0 18px 36px rgba(34, 72, 168, 0.16);
+        }
+
+        .tool-button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+        }
+
+        .tool-button.secondary {
+            background: linear-gradient(135deg, #ff7e8a, #ff9c66);
+        }
+
+        .range-input {
+            width: 100%;
+            margin-top: 4px;
+            accent-color: #4f6bff;
+        }
+
+        .hint-text {
+            margin-top: 10px;
+            color: #4c5a80;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .canvas-board {
+            margin-top: 30px;
+            position: relative;
+            height: 420px;
+            border-radius: 32px;
+            overflow: hidden;
+            border: 1px solid rgba(54, 88, 207, 0.15);
+            background: linear-gradient(180deg, #ffffff 0%, #eef4ff 100%);
+            box-shadow: 0 24px 70px rgba(26, 75, 175, 0.1);
+        }
+
+        .canvas-toolbar {
+            position: absolute;
+            left: 20px;
+            right: 20px;
+            top: 18px;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            z-index: 3;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-chip {
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(35, 76, 173, 0.08);
+            color: #152d66;
+            font-weight: 700;
+            border: 1px solid rgba(35, 76, 173, 0.12);
+        }
+
+        .canvas-frame {
+            position: absolute;
+            inset: 0;
+        }
+
+        .canvas-frame canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: none;
+        }
+
+        .navigation-dots {
+            position: absolute;
+            right: 24px;
+            bottom: 22px;
+            display: flex;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 74px;
+            height: 74px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.94);
+            color: #344574;
+            font-size: 34px;
+            cursor: pointer;
+            box-shadow: 0 20px 44px rgba(37, 72, 138, 0.16);
+            transition: transform 0.2s ease, background 0.2s ease;
+            z-index: 4;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-50%) scale(1.07);
+            background: #f7f9ff;
+        }
+
+        .prev-btn { left: -36px; }
+        .next-btn { right: -36px; }
+
+        @media (max-width: 980px) {
+            .controls-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tool-row {
+                flex-direction: column;
+            }
+
+            .tool-button {
+                width: 100%;
+            }
+
+            .page-card {
+                padding: 18px 16px 24px;
+            }
+
+            .letter-meta {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .page-card {
+                padding: 20px 18px 28px;
+            }
+
+            .hero-title {
+                font-size: clamp(2.5rem, 12vw, 4rem);
+            }
+
+            .canvas-board {
+                height: 340px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-card">
+        <div class="section-top">
+            <div class="title-block">
+                <div class="brand-pill">✍️ অক্ষর ট্রেস</div>
+                <h1 class="hero-title"><span id="arabic-char">ا</span></h1>
+                <div class="hero-subtitle" id="bangla-pronun">আলিফ</div>
+            </div>
+            <div class="letter-meta">
+                <span class="meta-chip" id="letter-index">✏️ 1 / 28</span>
+                <span class="meta-chip" id="letter-color">🎨 rgb(255, 82, 82)</span>
+                <span class="meta-chip" id="letter-rgb">🧩 255, 82, 82</span>
+            </div>
+        </div>
+
+        <div class="controls-grid">
+            <div class="control-card">
+                <h3>🎨 রং</h3>
+                <div class="color-palette" id="color-palette"></div>
+                <p class="hint-text">ট্যাপ করুন, রং নির্বাচন করুন।</p>
+            </div>
+            <div class="control-card">
+                <h3>✏️ মোটা</h3>
+                <input id="brush-size" class="range-input" type="range" min="6" max="28" value="12">
+                <p class="hint-text">বড় বা ছোট রেখা করুন।</p>
+            </div>
+            <div class="control-card">
+                <h3>🧹 সরঞ্জাম</h3>
+                <div class="tool-row">
+                    <button class="tool-button secondary" id="erase-btn" type="button">🧽 ইরেজার</button>
+                    <button class="tool-button" id="clear-btn" type="button">🗑️ মুছুন</button>
+                </div>
+                <p class="hint-text">ভুল হলে মোছুন, নতুন করে শুরু করুন।</p>
+            </div>
+            <div class="control-card">
+                <h3>⏮️ ⏭️</h3>
+                <div class="tool-row">
+                    <button class="tool-button secondary" type="button" onclick="changeLetter(-1)">⬅️ আগে</button>
+                    <button class="tool-button" type="button" onclick="changeLetter(1)">➡️ পরবর্তী</button>
+                </div>
+                <p class="hint-text">ডান বা বাম টাচ করুন।</p>
+            </div>
+        </div>
+
+        <div class="canvas-board">
+            <div class="canvas-toolbar">
+                <span class="toolbar-chip">টুল: <strong id="active-tool">পেন</strong></span>
+                <span class="toolbar-chip">মোট: <strong id="brush-size-label">12</strong></span>
+            </div>
+            <div class="canvas-frame">
+                <canvas id="guide-canvas" width="960" height="420"></canvas>
+                <canvas id="draw-canvas" width="960" height="420"></canvas>
+            </div>
+            <div class="navigation-dots">
+                <button class="nav-btn prev-btn" onclick="changeLetter(-1)">❮</button>
+                <button class="nav-btn next-btn" onclick="changeLetter(1)">❯</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const alphabet = [
+            {a: "ا", b: "আলিফ", r: 255, g: 82, b: 82},
+            {a: "ب", b: "বা", r: 33, g: 150, b: 243},
+            {a: "ت", b: "তা", r: 76, g: 175, b: 80},
+            {a: "ث", b: "সা", r: 156, g: 39, b: 176},
+            {a: "ج", b: "জীম", r: 255, g: 152, b: 0},
+            {a: "ح", b: "হা", r: 0, g: 188, b: 212},
+            {a: "خ", b: "খা", r: 121, g: 85, b: 72},
+            {a: "د", b: "দাল", r: 233, g: 30, b: 99},
+            {a: "ذ", b: "যাল", r: 96, g: 125, b: 139},
+            {a: "ر", b: "রা", r: 255, g: 193, b: 7},
+            {a: "ز", b: "যা", r: 139, g: 195, b: 74},
+            {a: "س", b: "সীন", r: 3, g: 169, b: 244},
+            {a: "ش", b: "শীন", r: 244, g: 67, b: 54},
+            {a: "ص", b: "সোয়াদ", r: 103, g: 58, b: 183},
+            {a: "ض", b: "দোয়াদ", r: 56, g: 142, b: 60},
+            {a: "ط", b: "তোয়া", r: 33, g: 150, b: 243},
+            {a: "ظ", b: "জোয়া", r: 255, g: 87, b: 34},
+            {a: "ع", b: "আইন", r: 0, g: 150, b: 136},
+            {a: "غ", b: "গাইন", r: 96, g: 125, b: 139},
+            {a: "ف", b: "ফা", r: 233, g: 30, b: 99},
+            {a: "ق", b: "ক্বফ", r: 63, g: 81, b: 181},
+            {a: "ك", b: "কাফ", r: 139, g: 195, b: 74},
+            {a: "ل", b: "লাম", r: 255, g: 235, b: 59},
+            {a: "م", b: "মীম", r: 255, g: 152, b: 0},
+            {a: "ن", b: "নূন", r: 76, g: 175, b: 80},
+            {a: "و", b: "ওয়াও", r: 244, g: 67, b: 54},
+            {a: "هـ", b: "হা", r: 0, g: 188, b: 212},
+            {a: "لا", b: "লাম-আলিফ", r: 156, g: 39, b: 176},
+            {a: "ي", b: "ইয়া", r: 255, g: 193, b: 7}
+        ];
+
+        const colorOptions = ['#ff3d71','#ff7d1a','#ffc107','#4caf50','#1e88e5','#8e24aa','#00bfa5','#424242'];
+        const charEl = document.getElementById('arabic-char');
+        const pronunEl = document.getElementById('bangla-pronun');
+        const indexEl = document.getElementById('letter-index');
+        const colorEl = document.getElementById('letter-color');
+        const rgbEl = document.getElementById('letter-rgb');
+        const brushSizeEl = document.getElementById('brush-size');
+        const brushSizeLabel = document.getElementById('brush-size-label');
+        const activeToolEl = document.getElementById('active-tool');
+        const colorPalette = document.getElementById('color-palette');
+        const eraseBtn = document.getElementById('erase-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const guideCanvas = document.getElementById('guide-canvas');
+        const drawCanvas = document.getElementById('draw-canvas');
+        const guideCtx = guideCanvas.getContext('2d');
+        const drawCtx = drawCanvas.getContext('2d');
+
+        let currentIndex = 0;
+        let currentColor = '#ff3d71';
+        let currentTool = 'pen';
+        let drawing = false;
+        let lastPoint = { x: 0, y: 0 };
+
+        function rgbString(letter) {
+            return `rgb(${letter.r}, ${letter.g}, ${letter.b})`;
+        }
+
+        function setLetterUI() {
+            const letter = alphabet[currentIndex];
+            const letterColor = rgbString(letter);
+            charEl.textContent = letter.a;
+            charEl.style.color = letterColor;
+            pronunEl.textContent = letter.b;
+            indexEl.textContent = `অক্ষর ${currentIndex + 1} / ${alphabet.length}`;
+            colorEl.textContent = `রঙ: ${letterColor}`;
+            rgbEl.textContent = `RGB: ${letter.r}, ${letter.g}, ${letter.b}`;
+            currentColor = colorOptions[currentIndex % colorOptions.length];
+            selectPaletteSwatch(currentColor);
+            drawLetterGuide(letter);
+        }
+
+        function drawLetterGuide(letter) {
+            guideCtx.clearRect(0, 0, guideCanvas.width, guideCanvas.height);
+            guideCtx.fillStyle = `rgba(${letter.r}, ${letter.g}, ${letter.b}, 0.12)`;
+            guideCtx.font = '320px Hind Siliguri, sans-serif';
+            guideCtx.textAlign = 'center';
+            guideCtx.textBaseline = 'middle';
+            const x = guideCanvas.width / 2;
+            const y = guideCanvas.height / 2 + 12;
+            guideCtx.fillText(letter.a, x, y);
+            guideCtx.strokeStyle = `rgba(${letter.r}, ${letter.g}, ${letter.b}, 0.18)`;
+            guideCtx.lineWidth = 8;
+            guideCtx.strokeText(letter.a, x, y);
+        }
+
+        function createPalette() {
+            colorOptions.forEach(color => {
+                const swatch = document.createElement('button');
+                swatch.type = 'button';
+                swatch.className = 'swatch';
+                swatch.style.background = color;
+                swatch.dataset.color = color;
+                swatch.addEventListener('click', () => {
+                    currentTool = 'pen';
+                    activeToolEl.textContent = 'পেন';
+                    setBrushColor(color);
+                    setActiveSwatch(swatch);
+                });
+                colorPalette.appendChild(swatch);
+            });
+        }
+
+        function setActiveSwatch(selected) {
+            document.querySelectorAll('.swatch').forEach(swatch => swatch.classList.remove('active'));
+            selected.classList.add('active');
+        }
+
+        function selectPaletteSwatch(color) {
+            const swatch = Array.from(document.querySelectorAll('.swatch')).find(el => el.dataset.color === color);
+            if (swatch) {
+                setActiveSwatch(swatch);
+            }
+        }
+
+        function setBrushColor(color) {
+            currentColor = color;
+            drawCtx.globalCompositeOperation = 'source-over';
+            currentTool = 'pen';
+            activeToolEl.textContent = 'পেন';
+        }
+
+        function setBrushSize(value) {
+            brushSizeLabel.textContent = value;
+        }
+
+        function clearDrawing() {
+            drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+        }
+
+        function startStroke(event) {
+            drawing = true;
+            const rect = drawCanvas.getBoundingClientRect();
+            lastPoint.x = (event.clientX - rect.left) * (drawCanvas.width / rect.width);
+            lastPoint.y = (event.clientY - rect.top) * (drawCanvas.height / rect.height);
+            drawCtx.beginPath();
+            drawCtx.moveTo(lastPoint.x, lastPoint.y);
+        }
+
+        function drawStroke(event) {
+            if (!drawing) return;
+            const rect = drawCanvas.getBoundingClientRect();
+            const x = (event.clientX - rect.left) * (drawCanvas.width / rect.width);
+            const y = (event.clientY - rect.top) * (drawCanvas.height / rect.height);
+            drawCtx.lineCap = 'round';
+            drawCtx.lineJoin = 'round';
+            drawCtx.lineWidth = parseInt(brushSizeEl.value, 10);
+            if (currentTool === 'eraser') {
+                drawCtx.globalCompositeOperation = 'destination-out';
+                drawCtx.strokeStyle = 'rgba(0,0,0,1)';
+            } else {
+                drawCtx.globalCompositeOperation = 'source-over';
+                drawCtx.strokeStyle = currentColor;
+            }
+            drawCtx.lineTo(x, y);
+            drawCtx.stroke();
+            lastPoint.x = x;
+            lastPoint.y = y;
+        }
+
+        function stopStroke() {
+            drawing = false;
+            drawCtx.closePath();
+        }
+
+        function setEraser() {
+            currentTool = 'eraser';
+            activeToolEl.textContent = 'ইরেজার';
+            document.querySelectorAll('.swatch').forEach(swatch => swatch.classList.remove('active'));
+        }
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'ArrowRight') {
+                changeLetter(1);
+            }
+            if (event.key === 'ArrowLeft') {
+                changeLetter(-1);
+            }
+        });
+
+        brushSizeEl.addEventListener('input', () => setBrushSize(brushSizeEl.value));
+        eraseBtn.addEventListener('click', setEraser);
+        clearBtn.addEventListener('click', () => {
+            clearDrawing();
+            drawLetterGuide(alphabet[currentIndex]);
+        });
+
+        drawCanvas.addEventListener('pointerdown', event => {
+            event.preventDefault();
+            startStroke(event);
+        });
+        drawCanvas.addEventListener('pointermove', event => {
+            event.preventDefault();
+            drawStroke(event);
+        });
+        window.addEventListener('pointerup', stopStroke);
+        drawCanvas.addEventListener('pointerleave', stopStroke);
+
+        function changeLetter(dir) {
+            currentIndex += dir;
+            if (currentIndex >= alphabet.length) currentIndex = 0;
+            if (currentIndex < 0) currentIndex = alphabet.length - 1;
+            setLetterUI();
+            clearDrawing();
+        }
+
+        createPalette();
+        setBrushSize(brushSizeEl.value);
+        setLetterUI();
+    </script>
+
+</body>
+</html>
